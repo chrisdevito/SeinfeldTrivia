@@ -9,5 +9,5 @@ EPISODE_REGEX = re.compile(
 )
 
 SEASON_REGEX = re.compile(
-    r"(\w+)(?P<season_number>.+)(?P<season_airdate>\(\d+-\d+\))"
+    r"(\w+)(?P<season_number>.+) (?P<season_year>\(\d+\))?(?P<season_airdate>\(\d+-\d+\))?"
 )

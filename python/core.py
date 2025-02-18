@@ -48,18 +48,23 @@ def get_season_data():
             if not episode_link:
                 continue
 
+            episode_name = result.group("episode_name")
             season_result = const.SEASON_REGEX.search(season_title)
-            if not season_result:
-                season_number = 1
-            else:
-                season_number = season_result.group("season_number").strip(" ")
+            season_number = season_result.group("season_number").strip(" ")
+            if season_number == "t":
+                season_number = 0
+                episode_name = "Good News Bad News/Seinfeld Chronicles"
 
-            season_dict[season_title][result.group("episode_name")] = {
+            airdate = season_result.group("season_airdate")
+            if not airdate:
+                airdate = season_result.group("season_year")
+
+            season_dict[season_title][episode_name] = {
                 "episode_number": result.group("episode_number"),
                 "season_number": season_number,
                 "season title": season_title,
                 "season_episode_number": episode_index,
-                "episode_airdate": result.group("episode_airdate"),
+                "episode_airdate": airdate,
                 "site_link": f"https://www.seinfeldscripts.com/{episode_link}",
             }
             episode_index += 1
